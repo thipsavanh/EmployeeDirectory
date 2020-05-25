@@ -1,6 +1,7 @@
 import React from "react";
 
 const Table = (props) => {
+    console.log(props);
     return (
         <div className="container">
             <table className="table table-sm">
@@ -12,8 +13,8 @@ const Table = (props) => {
                         <th scope="col">Email</th>
                         <th scope="col">DOB</th>
                     </tr>
-                    {/* {props.result.map(result => (
-                        <tr key={result.name} className="list-group-item">
+                    {props.results.map(result => (
+                        <tr key={result.email} className="list-group-item">
                             <th>
                                 <img alt={result.name.first} src={result.picture.thumbnail}></img>
                             </th>
@@ -22,7 +23,7 @@ const Table = (props) => {
                             <td>{result.email}</td>
                             <td>{result.dob}</td>
                         </tr>
-                    ))} */}
+                    ))}
                 </tbody>
 
             </table>

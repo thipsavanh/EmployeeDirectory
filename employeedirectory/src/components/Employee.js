@@ -16,16 +16,22 @@ componentDidMount = () => {
 };
 
 loadEmployees = () => {
-    API.loadEmployees()
-    .then(res=>{this.setState({ results: res.data.results, searchResults: res.data.results })})
-    .catch(err => console.log(err));
+    API.searchEmployees()
+   .then(res => this.setState( {
+    results: res.data.results,
+    // searchResult: res.data.results,
+    error: "" 
+   })).catch(err => this.setState({
+    error: err.message
+   })
+   )
 }
 
 handleFormSubmit = event => {
     event.preventDefault();
 };
 
-handleInputChange = e => {
+handleInputChange = event => {
     const value = event.target.value;
     const name = event.target.name;
     let searchArray;
@@ -49,17 +55,32 @@ searchEmployee = (array, value) => {
    this.setState({ results: directory });
 };
 
-// render() {
-//     return(
-//         <div>
-//         <Search 
-//         onChange={this.handleInputChange}
-//         value={this.state.search} 
-//         handleFormSubmit={this.handleFormSubmit}
-//         />
-//         <Table results={this.state.searchResult} />
-//         </div>
-//     )
-// };
+render() {
+    console.log(this.state.results)
+    const { error, results } = this.state;
+    return(
+        <div>
+        <Search 
+        onChange={this.handleInputChange}
+        value={this.state.search} 
+        handleFormSubmit={this.handleFormSubmit}
+        />
+        <Table results={this.state.results} />
+         {/* {this.state.results.map(result => (
+                        <tr key={result.name} className="list-group-item">
+                            <th>
+                                <img alt={result.name.first} src={result.picture.thumbnail}></img>
+                            </th>
+                            <td>{result.name.first} {result.name.last}</td>
+                            <td>{result.phone}</td>
+                            <td>{result.email}</td>
+                            <td>{result.dob}</td>
+                        </tr>
+                    ))} */}
+        </div>
+    )
+};
      
 }
+
+export default Employee;
